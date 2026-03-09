@@ -7,41 +7,73 @@
 ```
 [{"Properties":{"Path":"$['eventId']"},"column":"eventId","datatype":""},{"Properties":{"Path":"$['eventType']"},"column":"eventType","datatype":""},{"Properties":{"Path":"$['type']"},"column":"type","datatype":""},{"Properties":{"Path":"$['eventName']"},"column":"eventName","datatype":""},{"Properties":{"Path":"$['userId']"},"column":"userId","datatype":""},{"Properties":{"Path":"$['timestamp']"},"column":"timestamp","datatype":""},{"Properties":{"Path":"$['properties']"},"column":"properties","datatype":""},{"Properties":{"Path":"$['context']"},"column":"context","datatype":""},{"Properties":{"Path":"$['ingestedAtUtc']"},"column":"ingestedAtUtc","datatype":""}]
 ```
+.create-merge table Images (Name:string, EncryptedImage:string, URL:string) 
+.create-or-alter table Images ingestion csv mapping 'Images_mapping'
+```
+[{"Properties":{"Ordinal":"0"},"column":"Name","datatype":""},{"Properties":{"Ordinal":"1"},"column":"EncryptedImage","datatype":""},{"Properties":{"Ordinal":"2"},"column":"URL","datatype":""}]
+```
+.create-merge table locations (AdminDivision1:string, CountryRegion_ShortName:string, CountryRegion_LongName:string, Longitude:real, Latitude:real) 
+.create-or-alter table locations ingestion csv mapping 'locations_mapping'
+```
+[{"Properties":{"Ordinal":"0"},"column":"AdminDivision1","datatype":""},{"Properties":{"Ordinal":"1"},"column":"CountryRegion_ShortName","datatype":""},{"Properties":{"Ordinal":"2"},"column":"CountryRegion_LongName","datatype":""},{"Properties":{"Ordinal":"3"},"column":"Longitude","datatype":""},{"Properties":{"Ordinal":"4"},"column":"Latitude","datatype":""}]
+```
 .create-or-alter function with (skipvalidation = "true") allSessions(eventDate:datetime) {
-    let startGame = 
+let startGame = 
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp,'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where ["type"] == "game"
     | where eventName in  ("game.start")
-    | project eventType, type, start=eventName, userId, startTime=localtime, sessionId = toguid(properties.sessionId), questionCount = toint(properties.questionCount), timestamp;
-    let score=
+    | project
+        eventType,
+        type,
+        start=eventName,
+        userId,
+        startTime=localtime,
+        sessionId = toguid(properties.sessionId),
+        questionCount = toint(properties.questionCount),
+        pool=tostring(context.poolName),
+        timestamp;
+let score=
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp,'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where eventName == "game.answerquestion"
-    | where isnotempty(FinalScore= tostring(properties.totalScore) )
-    | summarize arg_max (localtime, * ) by sessionId = toguid(properties.sessionId)
+    | where isnotempty(FinalScore= tostring(properties.totalScore))
+    | summarize arg_max (localtime, *) by sessionId = toguid(properties.sessionId)
     | project sessionId, FinalScore= toint(properties.totalScore);
-    let name=
+let name=
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp,'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where eventName == "user.register"
-    | distinct userId, userName = tostring(properties.name);
-    let endGame =
+    | distinct
+        userId,
+        userName = tostring(properties.name),
+        country=tostring(properties.country),
+        state=tostring(properties.state);
+let endGame =
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp,'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where ["type"] == "game"
     | where eventName in  ("game.ended")
-    | project eventType, type, end=eventName, endTime=localtime, sessionId = toguid(properties.sessionId), questionsAnswered = toint(properties.questionsAnswered), correctAnswers=toint(properties.correctAnswers),streaksCompleted=toint(properties.streaksCompleted),timeRemaining=toint(properties.timeRemaining),stationId=tostring(context.stationId);
-    startGame
-    | lookup endGame on sessionId
-    | lookup score on sessionId
-    | lookup name on userId
-    | extend gameTime = case(isempty(endTime), (now()-startTime), endTime-startTime)
-}
+    | project
+        eventType,
+        type,
+        end=eventName,
+        endTime=localtime,
+        sessionId = toguid(properties.sessionId),
+        questionsAnswered = toint(properties.questionsAnswered),
+        correctAnswers=toint(properties.correctAnswers),
+        streaksCompleted=toint(properties.streaksCompleted),
+        timeRemaining=toint(properties.timeRemaining),
+        stationId=tostring(context.stationId);
+startGame
+| join name on userId
+| lookup endGame on sessionId
+| lookup score on sessionId
+| extend gameTime = case(isempty(endTime), (now() - startTime), endTime - startTime)}
 .create-or-alter function with (skipvalidation = "true") currentSession(eventDate:datetime) {
     allSessions(eventDate)
     | where isempty(end) //and gameTime < timespan(4 m)
@@ -57,7 +89,7 @@
     | extend questionId = tostring(properties.questionId), isCorrect = tobool(properties.isCorrect)
     | lookup external_table('Questions') on $left.questionId == $right.id
     | project questionText}
-.create-or-alter function with (folder = "Calendar", skipvalidation = "true") Calendar(DaysBack:timespan=time(365.00:00:00), Precision:timespan=time(1.00:00:00)) {
+.create-or-alter function with (folder = "Calendar", skipvalidation = "true") Calendar(DaysBack:timespan=time(30.00:00:00), Precision:timespan=time(1.00:00:00)) {
     let _startDate = startofday(ago(DaysBack));
      let _endDate = startofday(now());
      range Date from _startDate to _endDate step Precision

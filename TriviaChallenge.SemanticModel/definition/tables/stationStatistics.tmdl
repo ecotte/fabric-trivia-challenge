@@ -1,0 +1,78 @@
+table stationStatistics
+	lineageTag: b0de5fab-73e9-4496-96be-0b389b652d3b
+
+	measure 'Image URL' = CALCULATE(MAX(stationStatistics[imageUrl]),stationStatistics[wizzardName]=SELECTEDVALUE(stationStatistics[wizzardName]))
+		lineageTag: d2043b51-f92b-447c-bc30-9611e0549425
+		dataCategory: ImageUrl
+
+	column stationId
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: a0d18929-86ae-4c5c-8c19-daa2141be0c8
+		summarizeBy: none
+		sourceColumn: stationId
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 5f843fa0-ab62-46dd-92db-d558b420fb2b
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column CorrectQuestions
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 4aa6613c-a4d8-43a0-a98f-42573df09ca3
+		summarizeBy: sum
+		sourceColumn: CorrectQuestions
+
+		annotation SummarizationSetBy = Automatic
+
+	column IncorrectQuestions
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: a1c7632f-f1c7-428c-a795-68d797b34ec3
+		summarizeBy: sum
+		sourceColumn: IncorrectQuestions
+
+		annotation SummarizationSetBy = Automatic
+
+	column imageUrl
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 1af0af88-458e-45d3-a67e-371c4265d92a
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: imageUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column wizzardName
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 92e8cf11-a200-4c38-b5b7-5193e5c3ad43
+		summarizeBy: none
+		sourceColumn: wizzardName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stationStatistics = m
+		mode: directQuery
+		source =
+				let
+				    Source = Connection,
+				    stationStatistics1 = Source{[Name="stationStatistics"]}[Data],
+				    #"Invoked FunctionstationStatistics1" = stationStatistics1(CurrentDate)
+				in
+				    #"Invoked FunctionstationStatistics1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

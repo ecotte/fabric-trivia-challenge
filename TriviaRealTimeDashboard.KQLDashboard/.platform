@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDashboard",
+    "displayName": "TriviaRealTimeDashboard",
+    "description": "TriviaRealTimeDashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "46b35561-a24b-8d0f-4463-fa8800a02d1e"
+  }
+}

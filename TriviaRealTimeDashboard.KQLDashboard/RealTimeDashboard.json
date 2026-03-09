@@ -1,0 +1,574 @@
+{
+  "schema_version": 68,
+  "autoRefresh": {
+    "enabled": true,
+    "defaultInterval": "1s"
+  },
+  "tiles": [
+    {
+      "id": "933fd5d0-4aca-4118-890c-4a06b2590d6b",
+      "title": "Latest questions",
+      "visualType": "multistat",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 4,
+        "y": 14,
+        "width": 16,
+        "height": 16
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "32c97b1c-0c33-4cdd-90a0-778f7681d678"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "large",
+        "multiStat__valueColumn": "questionText",
+        "colorRulesDisabled": false,
+        "multiStat__displayOrientation": "horizontal",
+        "multiStat__labelColumn": "pool",
+        "multiStat__slot": {
+          "width": 1,
+          "height": 3
+        },
+        "colorRules": [
+          {
+            "id": "b50b3508-d654-4a18-bf16-d5a2b4308917",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "isCorrect",
+                "values": [
+                  "correct"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "green",
+            "tag": "",
+            "icon": null,
+            "ruleName": "",
+            "visualType": "multistat"
+          },
+          {
+            "id": "a1752df0-751b-4ef5-b679-4cea03094e50",
+            "ruleType": "colorByCondition",
+            "applyToColumn": null,
+            "hideText": false,
+            "applyTo": "cells",
+            "conditions": [
+              {
+                "operator": "==",
+                "column": "isCorrect",
+                "values": [
+                  "incorrect"
+                ]
+              }
+            ],
+            "chainingOperator": "and",
+            "colorStyle": "bold",
+            "color": "red",
+            "tag": "",
+            "icon": null,
+            "ruleName": "",
+            "visualType": "multistat"
+          }
+        ]
+      }
+    },
+    {
+      "id": "0744d807-8bdb-40f7-a0bb-91280352c41d",
+      "title": "Playing now",
+      "visualType": "multistat",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 9,
+        "y": 6,
+        "width": 15,
+        "height": 3
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "22cc2846-1768-4e87-aba8-c0bf95321278"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": null,
+        "colorRulesDisabled": false,
+        "multiStat__displayOrientation": "horizontal",
+        "multiStat__labelColumn": null,
+        "multiStat__slot": {
+          "width": 3,
+          "height": 1
+        },
+        "colorRules": []
+      }
+    },
+    {
+      "id": "0fa6ceb7-d35b-49fc-9e97-502dd685bf6b",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 6
+      },
+      "markdownText": "![](https://i.postimg.cc/Kc9k18YW/image-27.png)",
+      "visualOptions": {}
+    },
+    {
+      "id": "6d4d8457-3006-44f0-8032-d93a1506a62e",
+      "title": "Response Time",
+      "visualType": "scatter",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 9,
+        "y": 9,
+        "width": 15,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "846fe032-2836-4bb8-b0c0-ecc5b484d22f"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "hideLegend": true,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": "timestamp",
+        "yColumns": [
+          "Rtime"
+        ],
+        "seriesColumns": [
+          "userId"
+        ],
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "crossFilter": [],
+        "drillthrough": [],
+        "dataPointsTooltip": {
+          "all": true,
+          "limit": 5
+        }
+      }
+    },
+    {
+      "id": "1d9f3dd4-a82f-4c7c-8bc4-429999140528",
+      "title": "Category success",
+      "visualType": "stackedbar",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 0,
+        "y": 30,
+        "width": 24,
+        "height": 10
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "d6eafb1e-0f28-4274-a869-72cc1d274e83"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "hideLegend": false,
+        "legendLocation": "right",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": [
+          "answer"
+        ],
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "seriesColors": {
+          "answer:correct:count_": "color--(7)",
+          "answer:incorrect:count_": "color--(23)"
+        },
+        "forceAxisTicks": false,
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "7d9ede88-6201-4e1e-8a8a-0f231f6e83b3",
+      "title": "Top 3 players with fastest (correct) average response",
+      "visualType": "multistat",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 0,
+        "y": 40,
+        "width": 24,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "7e5e726d-ab12-4a01-9b4c-6605ae725b8c"
+      },
+      "visualOptions": {
+        "multiStat__textSize": "auto",
+        "multiStat__valueColumn": "userName",
+        "colorRulesDisabled": true,
+        "multiStat__displayOrientation": "horizontal",
+        "multiStat__labelColumn": "responseTime",
+        "multiStat__slot": {
+          "width": 3,
+          "height": 1
+        },
+        "colorRules": []
+      }
+    },
+    {
+      "id": "0980c4e5-c051-435a-a8d0-3e23726b416c",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 0,
+        "y": 14,
+        "width": 4,
+        "height": 6
+      },
+      "markdownText": "![](https://i.postimg.cc/X79tB84Y/QQ-v4-2.png)",
+      "visualOptions": {}
+    },
+    {
+      "id": "e18af261-8316-4445-908e-331daaeb1717",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 0,
+        "y": 25,
+        "width": 4,
+        "height": 5
+      },
+      "markdownText": "![](https://i.postimg.cc/G2pXMFWJ/IA-v2-1.png)",
+      "visualOptions": {}
+    },
+    {
+      "id": "2c5a4156-caad-432c-84a2-b5120c71ffe7",
+      "title": "",
+      "visualType": "markdownCard",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 0,
+        "y": 20,
+        "width": 4,
+        "height": 5
+      },
+      "markdownText": "![](https://i.postimg.cc/2SDR0t2c/DD-v2-2.png)",
+      "visualOptions": {}
+    },
+    {
+      "id": "3eae5ec9-acb5-415e-986e-ddf711907815",
+      "title": "SQL vs Fabric",
+      "visualType": "pie",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 9,
+        "height": 8
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "973cd37e-093f-484f-9a48-1d378ae6b5e6"
+      },
+      "visualOptions": {
+        "hideLegend": true,
+        "legendLocation": "bottom",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "labelDisabled": false,
+        "pie__label": [
+          "name",
+          "percentage",
+          "value"
+        ],
+        "tooltipDisabled": false,
+        "pie__tooltip": [
+          "name",
+          "percentage",
+          "value"
+        ],
+        "pie__orderBy": "size",
+        "pie__kind": "pie",
+        "pie__topNSlices": null,
+        "seriesColors": {
+          "SQL": "color--(2)",
+          "Fabric": "color--(6)"
+        },
+        "crossFilter": [],
+        "drillthrough": []
+      }
+    },
+    {
+      "id": "e0f3ce95-03b3-4ee3-b840-cf091895d00f",
+      "title": "Station 1 pool",
+      "visualType": "markdown",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 20,
+        "y": 14,
+        "width": 4,
+        "height": 6
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "89c68714-ef74-4969-af7f-df404196cd03"
+      },
+      "hideTitle": true,
+      "visualOptions": {
+        "xColumn": "FinalCard",
+        "imageAllowlist": ""
+      }
+    },
+    {
+      "id": "d90f405d-417d-41ce-98a9-23e54390931e",
+      "title": "Station 1 pool",
+      "visualType": "markdown",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 20,
+        "y": 20,
+        "width": 4,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "2a6df17a-3a4a-4085-ac06-94676925a392"
+      },
+      "hideTitle": true,
+      "visualOptions": {
+        "xColumn": "FinalCard",
+        "imageAllowlist": ""
+      }
+    },
+    {
+      "id": "c31d680a-0bdd-4289-a1c6-a856463044d5",
+      "title": "Station 1 pool",
+      "visualType": "markdown",
+      "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
+      "layout": {
+        "x": 20,
+        "y": 25,
+        "width": 4,
+        "height": 5
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "147b81b5-329e-4f89-896b-f842bd616136"
+      },
+      "hideTitle": true,
+      "visualOptions": {
+        "xColumn": "FinalCard",
+        "imageAllowlist": ""
+      }
+    }
+  ],
+  "baseQueries": [
+    {
+      "id": "3bce921a-d549-44b0-894e-1e131d240785",
+      "queryId": "eb98abf5-6b9b-43bf-931d-145c54d402a4",
+      "variableName": "_todaysevents"
+    }
+  ],
+  "parameters": [
+    {
+      "kind": "datetime",
+      "id": "58738a9f-73b1-41bf-b795-9addeb8e963b",
+      "displayName": "Event Date",
+      "description": "",
+      "variableName": "_eventDate",
+      "selectionType": "scalar",
+      "includeAllOption": false,
+      "defaultValue": {
+        "kind": "query-result"
+      },
+      "dataSource": {
+        "kind": "query",
+        "columns": {
+          "value": "Date"
+        },
+        "queryRef": {
+          "kind": "query",
+          "queryId": "5f0fe69f-522c-4f3f-a1dc-6d26a5913459"
+        }
+      },
+      "showOnPages": {
+        "kind": "all"
+      }
+    }
+  ],
+  "dataSources": [
+    {
+      "kind": "kusto-trident",
+      "id": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6",
+      "name": "TriviaChallengeEventhouse",
+      "clusterUri": "",
+      "database": "be843d92-adc6-b044-4e33-753613cefde7",
+      "workspace": "00000000-0000-0000-0000-000000000000",
+      "scopeId": "kusto-trident"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Page 1",
+      "id": "2d972cba-5dfe-4f38-aa41-9618f7af4398"
+    }
+  ],
+  "queries": [
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "let pool=\r\nraw_events\r\n| where eventName == \"game.start\"\r\n| extend pool=tostring(context.poolName)\r\n| extend session=tostring(context.sessionId)\r\n| project pool, userId, session;\r\n_todaysevents\r\n| where eventName == \"game.answerquestion\"\r\n| extend\r\n    questionId = tostring(properties.questionId),\r\n    station= tostring(context.stationId),\r\n    isCorrect = case(tobool(properties.isCorrect) == \"true\", \"correct\", \"incorrect\") \r\n    | summarize arg_max(timestamp, *) by station\r\n    | sort by timestamp\r\n    | lookup external_table('Questions') on $left.questionId == $right.id\r\n    | extend session = tostring(properties.sessionId)\r\n    | lookup pool on session\r\n    | project questionText, isCorrect, station, pool\r\n    | extend loc = case (station == \"quantumqueryist\", \"1\", station == \"dashboarddruid\", \"2\", station == \"insightsalchemist\", \"3\", \"\")\r\n    | sort by loc asc",
+      "id": "32c97b1c-0c33-4cdd-90a0-778f7681d678",
+      "usedVariables": [
+        "_todaysevents"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "let _users = currentSession(startofday(now()))\n| project userName;\n_users\n| union (datatable(userName:string)[\"Waiting for Players\"] | where toscalar(_users | count ) == 0)",
+      "id": "22cc2846-1768-4e87-aba8-c0bf95321278",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "_todaysevents\n    | where eventName == \"game.answerquestion\"\n    | sort by timestamp\n    | limit 100\n    | extend Rtime = toint(properties.responseTime)/1000\n    ",
+      "id": "846fe032-2836-4bb8-b0c0-ecc5b484d22f",
+      "usedVariables": [
+        "_todaysevents"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "raw_events\n    | where eventName == \"game.answerquestion\"\n    | extend category = tostring(properties.category)\n    | extend answer = case (tobool(properties.isCorrect)== true, \"correct\", \"incorrect\")\n    | summarize count() by category, answer\n    | sort by category asc\n",
+      "id": "d6eafb1e-0f28-4274-a869-72cc1d274e83",
+      "usedVariables": []
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "let name=\n_todaysevents\n    | where eventName == \"user.register\"\n    | distinct userId, userName = tostring(properties.name);\n_todaysevents\n| where eventName == \"game.answerquestion\"\n| where tobool(properties.isCorrect) == true\n| summarize responseTime=strcat(round(avg(toint(properties.responseTime))), \" ms\") by userId\n| lookup name on userId\n| sort by responseTime asc\n| limit 3\n",
+      "id": "7e5e726d-ab12-4a01-9b4c-6605ae725b8c",
+      "usedVariables": [
+        "_todaysevents"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "allSessions(_eventDate)\n| summarize count() by pool",
+      "id": "973cd37e-093f-484f-9a48-1d378ae6b5e6",
+      "usedVariables": [
+        "_eventDate"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "let pool=\n    raw_events\n    | where eventName == \"game.start\"\n    | extend pool=tostring(context.poolName)\n    | extend session=tostring(context.sessionId)\n    | project pool, userId, session;\n_todaysevents\n| where eventName == \"game.answerquestion\"\n| extend station= tostring(context.stationId)\n| summarize arg_max(timestamp, *) by station\n| sort by timestamp\n| extend session = tostring(properties.sessionId)\n| lookup pool on session\n| project station, pool\n| extend loc = case (station == \"quantumqueryist\", \"1\", station == \"dashboarddruid\", \"2\", station == \"insightsalchemist\", \"3\", \"\")\n//| where loc == 1\n| lookup Images on $left.pool == $right.Name\n| extend FinalCard = strcat(\n    \"|   |\\n\",\n    \"| :-: |\\n\",\n    \"| ![\",pool, \"](\", URL, \") |\"\n)\n| project FinalCard\n",
+      "id": "89c68714-ef74-4969-af7f-df404196cd03",
+      "usedVariables": [
+        "_todaysevents"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "let pool=\n    raw_events\n    | where eventName == \"game.start\"\n    | extend pool=tostring(context.poolName)\n    | extend session=tostring(context.sessionId)\n    | project pool, userId, session;\n_todaysevents\n| where eventName == \"game.answerquestion\"\n| extend station= tostring(context.stationId)\n| summarize arg_max(timestamp, *) by station\n| sort by timestamp\n| extend session = tostring(properties.sessionId)\n| lookup pool on session\n| project station, pool\n| extend loc = case (station == \"quantumqueryist\", \"1\", station == \"dashboarddruid\", \"2\", station == \"insightsalchemist\", \"3\", \"\")\n//| where loc == 2\n| lookup Images on $left.pool == $right.Name\n| extend FinalCard = strcat(\n    \"|   |\\n\",\n    \"| :-: |\\n\",\n    \"| ![\",pool, \"](\", URL, \") |\"\n)\n| project FinalCard\n",
+      "id": "2a6df17a-3a4a-4085-ac06-94676925a392",
+      "usedVariables": [
+        "_todaysevents"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "let pool=\n    raw_events\n    | where eventName == \"game.start\"\n    | extend pool=tostring(context.poolName)\n    | extend session=tostring(context.sessionId)\n    | project pool, userId, session;\n_todaysevents\n| where eventName == \"game.answerquestion\"\n| extend station= tostring(context.stationId)\n| summarize arg_max(timestamp, *) by station\n| sort by timestamp\n| extend session = tostring(properties.sessionId)\n| lookup pool on session\n| project station, pool\n| extend loc = case (station == \"quantumqueryist\", \"1\", station == \"dashboarddruid\", \"2\", station == \"insightsalchemist\", \"3\", \"\")\n//| where loc == 3\n| lookup Images on $left.pool == $right.Name\n| extend FinalCard = strcat(\n    \"|   |\\n\",\n    \"| :-: |\\n\",\n    \"| ![\",pool, \"](\", URL, \") |\"\n)\n| project FinalCard\n",
+      "id": "147b81b5-329e-4f89-896b-f842bd616136",
+      "usedVariables": [
+        "_todaysevents"
+      ]
+    },
+    {
+      "id": "eb98abf5-6b9b-43bf-931d-145c54d402a4",
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "raw_events\n| extend timestamp=datetime_utc_to_local(timestamp,'US/Eastern')\n| where timestamp between (startofday(_eventDate)..endofday(_eventDate))",
+      "usedVariables": [
+        "_eventDate"
+      ]
+    },
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6"
+      },
+      "text": "Calendar()\n| project Date\n| sort by Date desc",
+      "id": "5f0fe69f-522c-4f3f-a1dc-6d26a5913459",
+      "usedVariables": []
+    }
+  ]
+}

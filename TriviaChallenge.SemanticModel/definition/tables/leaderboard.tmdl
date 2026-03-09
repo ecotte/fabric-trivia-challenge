@@ -1,0 +1,124 @@
+table leaderboard
+	lineageTag: 62055c1c-4731-435d-b1cc-c52b9cf5a0a1
+
+	column User
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 81d336f6-11a8-42b7-884b-d0aa54e5c111
+		summarizeBy: none
+		sourceColumn: User
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Final Score'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e034088e-c601-46f2-a3c0-efa330018500
+		summarizeBy: sum
+		sourceColumn: Final Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Correct Answers'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 81934cef-357d-4efc-a3b1-343888fd1d12
+		summarizeBy: sum
+		sourceColumn: Correct Answers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Streak Count'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 6e108e52-d20c-4e92-af17-cd4274557445
+		summarizeBy: sum
+		sourceColumn: Streak Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rank
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 6ad1b0ec-3331-4f7c-885e-77648236ab2c
+		summarizeBy: sum
+		sourceColumn: Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column stationId
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 51440505-2ce7-4247-b93d-8d5522bc7fdb
+		summarizeBy: none
+		sourceColumn: stationId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Station
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: cf5a250c-8ea8-4e1e-b161-1e572646b596
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Station
+
+		annotation SummarizationSetBy = Automatic
+
+	column wizzardName
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 200fc0e8-2df9-41ed-96ab-1640f3cba9a9
+		summarizeBy: none
+		sourceColumn: wizzardName
+
+		annotation SummarizationSetBy = Automatic
+
+	column timestamp
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetimeoffset
+		lineageTag: 30b38b50-670b-4c6a-a13c-d961fac45caa
+		summarizeBy: none
+		sourceColumn: timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column localtime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetimeoffset
+		lineageTag: fb0f9999-515c-484f-9846-48c8e40c3559
+		summarizeBy: none
+		sourceColumn: localtime
+
+		annotation SummarizationSetBy = Automatic
+
+	column userId
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 9ae77d31-8f7b-46a8-a879-062a71b25643
+		summarizeBy: none
+		sourceColumn: userId
+
+		annotation SummarizationSetBy = Automatic
+
+	partition leaderboard = m
+		mode: directQuery
+		source =
+				let
+				    Source = Connection,
+				    leaderboard1 = Source{[Name="leaderboard"]}[Data],
+				    #"Invoked Functionleaderboard1" = leaderboard1(CurrentDate, 10),
+				    #"Renamed Columns" = Table.RenameColumns(#"Invoked Functionleaderboard1",{{"userName", "User"}, {"streakCount", "Streak Count"}, {"FinalScore", "Final Score"}, {"correctAnswers", "Correct Answers"}, {"imageUrl", "Station"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

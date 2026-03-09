@@ -1,0 +1,106 @@
+table 'external_table(''Questions'')'
+	lineageTag: 961ae520-ac2a-4d0a-91f0-c0518c8c968c
+
+	column _rid
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: f1cfd755-0f3a-4a42-ac0e-b631430371bc
+		summarizeBy: none
+		sourceColumn: _rid
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 1bd62734-a7fb-4983-b79b-d1ccef26452a
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 899b3365-0ccf-4404-9c3e-7541acfafb11
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column questionText
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 8817f153-2d12-450a-a4ec-eb71432e2796
+		summarizeBy: none
+		sourceColumn: questionText
+
+		annotation SummarizationSetBy = Automatic
+
+	column answers
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 572921d8-d80f-4776-b899-f341fc9a1637
+		summarizeBy: none
+		sourceColumn: answers
+
+		annotation SummarizationSetBy = Automatic
+
+	column correctAnswerKey
+		dataType: double
+		formatString: 0
+		lineageTag: e04226c2-cd7c-47f8-9d15-c84ad16106a2
+		summarizeBy: count
+		sourceColumn: correctAnswerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column metadata
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 334f07ee-a154-4f0a-bc30-fe327dcb6227
+		summarizeBy: none
+		sourceColumn: metadata
+
+		annotation SummarizationSetBy = Automatic
+
+	column createdAt
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 9f991d47-134f-458c-b91e-bc82733ca15b
+		summarizeBy: none
+		sourceColumn: createdAt
+
+		annotation SummarizationSetBy = Automatic
+
+	column _ts
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 0cdf5398-4804-4e6e-a80f-5514de3ea05d
+		summarizeBy: sum
+		sourceColumn: _ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column pools
+		dataType: string
+		lineageTag: b0146b27-dad6-483f-b998-572ea56f7bfe
+		summarizeBy: none
+		sourceColumn: pools
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'external_table(''Questions'')' = m
+		mode: directQuery
+		source =
+				let
+				    Source = Connection,
+				    #"external_table('Questions')1" = Source{[Name="external_table('Questions')"]}[Data]
+				in
+				    #"external_table('Questions')1"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navigation
+

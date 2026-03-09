@@ -1,0 +1,354 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/CosmosDB/definition/CosmosDB/2.0.0/schema.json",
+  "containers": [
+    {
+      "options": {
+        "autoscaleSettings": {
+          "maxThroughput": 1000
+        }
+      },
+      "resource": {
+        "id": "GameSessionAnswers",
+        "computedProperties": [],
+        "conflictResolutionPolicy": {
+          "mode": "LastWriterWins",
+          "conflictResolutionPath": "/_ts",
+          "conflictResolutionProcedure": ""
+        },
+        "geospatialConfig": {
+          "type": "Geography"
+        },
+        "indexingPolicy": {
+          "automatic": true,
+          "indexingMode": "Consistent",
+          "includedPaths": [
+            {
+              "path": "/*",
+              "indexes": []
+            }
+          ],
+          "excludedPaths": [
+            {
+              "path": "/\"_etag\"/?"
+            }
+          ],
+          "compositeIndexes": [],
+          "spatialIndexes": [],
+          "vectorIndexes": [],
+          "fullTextIndexes": []
+        },
+        "partitionKey": {
+          "paths": [
+            "/userId"
+          ],
+          "kind": "Hash"
+        },
+        "uniqueKeyPolicy": {
+          "uniqueKeys": []
+        }
+      }
+    },
+    {
+      "options": {
+        "autoscaleSettings": {
+          "maxThroughput": 1000
+        }
+      },
+      "resource": {
+        "id": "GameSessions",
+        "computedProperties": [],
+        "conflictResolutionPolicy": {
+          "mode": "LastWriterWins",
+          "conflictResolutionPath": "/_ts",
+          "conflictResolutionProcedure": ""
+        },
+        "geospatialConfig": {
+          "type": "Geography"
+        },
+        "indexingPolicy": {
+          "automatic": true,
+          "indexingMode": "Consistent",
+          "includedPaths": [
+            {
+              "path": "/*",
+              "indexes": []
+            }
+          ],
+          "excludedPaths": [
+            {
+              "path": "/\"_etag\"/?"
+            }
+          ],
+          "compositeIndexes": [],
+          "spatialIndexes": [],
+          "vectorIndexes": [],
+          "fullTextIndexes": []
+        },
+        "partitionKey": {
+          "paths": [
+            "/userId"
+          ],
+          "kind": "Hash"
+        },
+        "uniqueKeyPolicy": {
+          "uniqueKeys": []
+        }
+      }
+    },
+    {
+      "options": {
+        "autoscaleSettings": {
+          "maxThroughput": 1000
+        }
+      },
+      "resource": {
+        "id": "QuestionDraws",
+        "computedProperties": [],
+        "conflictResolutionPolicy": {
+          "mode": "LastWriterWins",
+          "conflictResolutionPath": "/_ts",
+          "conflictResolutionProcedure": ""
+        },
+        "geospatialConfig": {
+          "type": "Geography"
+        },
+        "indexingPolicy": {
+          "automatic": true,
+          "indexingMode": "Consistent",
+          "includedPaths": [
+            {
+              "path": "/*",
+              "indexes": []
+            }
+          ],
+          "excludedPaths": [
+            {
+              "path": "/\"_etag\"/?"
+            }
+          ],
+          "compositeIndexes": [],
+          "spatialIndexes": [],
+          "vectorIndexes": [],
+          "fullTextIndexes": []
+        },
+        "partitionKey": {
+          "paths": [
+            "/id"
+          ],
+          "kind": "Hash"
+        },
+        "uniqueKeyPolicy": {
+          "uniqueKeys": []
+        }
+      }
+    },
+    {
+      "options": {
+        "autoscaleSettings": {
+          "maxThroughput": 1000
+        }
+      },
+      "resource": {
+        "id": "QuestionPools",
+        "computedProperties": [],
+        "conflictResolutionPolicy": {
+          "mode": "LastWriterWins",
+          "conflictResolutionPath": "/_ts",
+          "conflictResolutionProcedure": ""
+        },
+        "geospatialConfig": {
+          "type": "Geography"
+        },
+        "indexingPolicy": {
+          "automatic": true,
+          "indexingMode": "Consistent",
+          "includedPaths": [
+            {
+              "path": "/*",
+              "indexes": []
+            }
+          ],
+          "excludedPaths": [
+            {
+              "path": "/\"_etag\"/?"
+            }
+          ],
+          "compositeIndexes": [],
+          "spatialIndexes": [],
+          "vectorIndexes": [],
+          "fullTextIndexes": []
+        },
+        "partitionKey": {
+          "paths": [
+            "/id"
+          ],
+          "kind": "Hash"
+        },
+        "uniqueKeyPolicy": {
+          "uniqueKeys": []
+        }
+      }
+    },
+    {
+      "options": {
+        "autoscaleSettings": {
+          "maxThroughput": 1000
+        }
+      },
+      "resource": {
+        "id": "Questions",
+        "computedProperties": [],
+        "conflictResolutionPolicy": {
+          "mode": "LastWriterWins",
+          "conflictResolutionPath": "/_ts",
+          "conflictResolutionProcedure": ""
+        },
+        "geospatialConfig": {
+          "type": "Geography"
+        },
+        "indexingPolicy": {
+          "automatic": true,
+          "indexingMode": "Consistent",
+          "includedPaths": [
+            {
+              "path": "/*",
+              "indexes": []
+            },
+            {
+              "path": "/pools/*",
+              "indexes": []
+            }
+          ],
+          "excludedPaths": [
+            {
+              "path": "/\"_etag\"/?"
+            }
+          ],
+          "compositeIndexes": [],
+          "spatialIndexes": [],
+          "vectorIndexes": [],
+          "fullTextIndexes": []
+        },
+        "partitionKey": {
+          "paths": [
+            "/id"
+          ],
+          "kind": "Hash"
+        },
+        "uniqueKeyPolicy": {
+          "uniqueKeys": []
+        }
+      }
+    },
+    {
+      "options": {
+        "autoscaleSettings": {
+          "maxThroughput": 5000
+        }
+      },
+      "resource": {
+        "id": "Sessions",
+        "computedProperties": [],
+        "conflictResolutionPolicy": {
+          "mode": "LastWriterWins",
+          "conflictResolutionPath": "/_ts",
+          "conflictResolutionProcedure": ""
+        },
+        "fullTextPolicy": {
+          "defaultLanguage": "en-US",
+          "fullTextPaths": []
+        },
+        "geospatialConfig": {
+          "type": "Geography"
+        },
+        "indexingPolicy": {
+          "automatic": true,
+          "indexingMode": "Consistent",
+          "includedPaths": [
+            {
+              "path": "/*",
+              "indexes": []
+            }
+          ],
+          "excludedPaths": [
+            {
+              "path": "/\"_etag\"/?"
+            }
+          ],
+          "compositeIndexes": [],
+          "spatialIndexes": [],
+          "vectorIndexes": [],
+          "fullTextIndexes": []
+        },
+        "partitionKey": {
+          "paths": [
+            "/userId"
+          ],
+          "kind": "Hash",
+          "version": 2
+        },
+        "uniqueKeyPolicy": {
+          "uniqueKeys": []
+        },
+        "vectorEmbeddingPolicy": {
+          "vectorEmbeddings": []
+        }
+      }
+    },
+    {
+      "options": {
+        "autoscaleSettings": {
+          "maxThroughput": 5000
+        }
+      },
+      "resource": {
+        "id": "Users",
+        "computedProperties": [],
+        "conflictResolutionPolicy": {
+          "mode": "LastWriterWins",
+          "conflictResolutionPath": "/_ts",
+          "conflictResolutionProcedure": ""
+        },
+        "fullTextPolicy": {
+          "defaultLanguage": "en-US",
+          "fullTextPaths": []
+        },
+        "geospatialConfig": {
+          "type": "Geography"
+        },
+        "indexingPolicy": {
+          "automatic": true,
+          "indexingMode": "Consistent",
+          "includedPaths": [
+            {
+              "path": "/*",
+              "indexes": []
+            }
+          ],
+          "excludedPaths": [
+            {
+              "path": "/\"_etag\"/?"
+            }
+          ],
+          "compositeIndexes": [],
+          "spatialIndexes": [],
+          "vectorIndexes": [],
+          "fullTextIndexes": []
+        },
+        "partitionKey": {
+          "paths": [
+            "/id"
+          ],
+          "kind": "Hash",
+          "version": 2
+        },
+        "uniqueKeyPolicy": {
+          "uniqueKeys": []
+        },
+        "vectorEmbeddingPolicy": {
+          "vectorEmbeddings": []
+        }
+      }
+    }
+  ]
+}

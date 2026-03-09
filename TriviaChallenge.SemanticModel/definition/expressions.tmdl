@@ -1,0 +1,33 @@
+expression CurrentDate = #datetime(2025, 3, 5, 13, 33, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 9b24462e-8464-4122-9116-88fda9939cc7
+	parameterValuesColumn: Calendar.Date
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+expression KQLDatabaseURI = "https://trd-uz0vunh3y4d52rgdxz.z7.kusto.fabric.microsoft.com" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 4c24bb89-02a8-4a33-b7d1-edc2a763dc60
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression KQLDatabaseName = "TriviaEventhouse" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: a9c0c230-2b0f-422c-b8b4-7509faa97c43
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression Connection =
+		let
+		    Source = AzureDataExplorer.Contents(KQLDatabaseURI, KQLDatabaseName)
+		in
+		    Source
+	lineageTag: 2c2c144a-eaee-42a7-a4e8-e41a90e35549
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

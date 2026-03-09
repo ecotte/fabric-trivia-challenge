@@ -1,0 +1,32 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "1.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "session.sessionname": {
+			      "Binding": {
+			        "ConceptualEntity": "Session",
+			        "ConceptualProperty": "SessionName"
+			      },
+			      "State": "Generated"
+			    },
+			    "session_lap.best_lap_time": {
+			      "Binding": {
+			        "ConceptualEntity": "Session Lap",
+			        "ConceptualProperty": "Best Lap Time"
+			      },
+			      "State": "Generated"
+			    },
+			    "previousdaywinners.stationid": {
+			      "Binding": {
+			        "ConceptualEntity": "previousDayWinners",
+			        "ConceptualProperty": "stationId"
+			      },
+			      "State": "Generated"
+			    }
+			  }
+			}
+		contentType: json
+

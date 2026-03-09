@@ -1,0 +1,207 @@
+table allSessions
+	lineageTag: ec24751e-653f-49dd-8a67-2586666e9ee4
+
+	column eventType
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: bec2c04a-ec9a-4ff8-933a-0993594d4874
+		summarizeBy: none
+		sourceColumn: eventType
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 03342693-1827-4a34-bed1-f4b2c8af2d3d
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column start
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 001d1b9d-7a05-4c0d-ab10-70cf995e6dc1
+		summarizeBy: none
+		sourceColumn: start
+
+		annotation SummarizationSetBy = Automatic
+
+	column userId
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 832b1806-1d00-4182-b692-738781f0419c
+		summarizeBy: none
+		sourceColumn: userId
+
+		annotation SummarizationSetBy = Automatic
+
+	column startTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetimeoffset
+		lineageTag: 539f23cd-6b09-49bd-88cd-67b30e5bdf4c
+		summarizeBy: none
+		sourceColumn: startTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column sessionId
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 73151fb4-03d3-438e-8ce3-ac90999ce9b1
+		summarizeBy: none
+		sourceColumn: sessionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column questionCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 897099e8-22f9-45d7-80c0-7c72ccb8d96d
+		summarizeBy: sum
+		sourceColumn: questionCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column eventType1
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 5b3981f8-fbe0-42bd-b28d-a54e49d03d8a
+		summarizeBy: none
+		sourceColumn: eventType1
+
+		annotation SummarizationSetBy = Automatic
+
+	column type1
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 5bc24067-0d57-4db9-8fe3-56f8e3856190
+		summarizeBy: none
+		sourceColumn: type1
+
+		annotation SummarizationSetBy = Automatic
+
+	column end
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 8a1e7b64-48e8-4a14-99cb-9218e94738f6
+		summarizeBy: none
+		sourceColumn: end
+
+		annotation SummarizationSetBy = Automatic
+
+	column endTime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetimeoffset
+		lineageTag: 6baf511f-9224-4c1b-8d90-21e5ccb15ae9
+		summarizeBy: none
+		sourceColumn: endTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column questionsAnswered
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9fed569e-8a83-49c3-bdb8-02f5e217c97e
+		summarizeBy: sum
+		sourceColumn: questionsAnswered
+
+		annotation SummarizationSetBy = Automatic
+
+	column correctAnswers
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 480ac1fd-ac81-459d-9518-76bb0914fa7c
+		summarizeBy: sum
+		sourceColumn: correctAnswers
+
+		annotation SummarizationSetBy = Automatic
+
+	column streaksCompleted
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ea01e542-87b6-4c19-96ca-9be409c1e86d
+		summarizeBy: sum
+		sourceColumn: streaksCompleted
+
+		annotation SummarizationSetBy = Automatic
+
+	column timeRemaining
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 068c4011-3002-4960-831a-67bceaa2e66f
+		summarizeBy: sum
+		sourceColumn: timeRemaining
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinalScore
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: addce84b-73b3-4c2d-8242-77f61ff85289
+		summarizeBy: sum
+		sourceColumn: FinalScore
+
+		annotation SummarizationSetBy = Automatic
+
+	column userName
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 1dd921ee-108a-405e-b6c9-b41d878bd8c1
+		summarizeBy: none
+		sourceColumn: userName
+
+		annotation SummarizationSetBy = Automatic
+
+	column gameTime
+		dataType: double
+		lineageTag: c8c672ff-024a-45fe-9547-ec6988d9858b
+		summarizeBy: sum
+		sourceColumn: gameTime
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column stationId
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: a985c5fb-682c-4aaf-8494-ebf86b11abbb
+		summarizeBy: none
+		sourceColumn: stationId
+
+		annotation SummarizationSetBy = Automatic
+
+	column timestamp
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetimeoffset
+		lineageTag: b57f9221-9d68-4030-bd2d-380bd3308e00
+		summarizeBy: none
+		sourceColumn: timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	partition allSessions = m
+		mode: directQuery
+		source =
+				let
+				    Source = Connection,
+				    allSessions1 = Source{[Name="allSessions"]}[Data],
+				    #"Invoked FunctionallSessions1" = allSessions1(CurrentDate)
+				in
+				    #"Invoked FunctionallSessions1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

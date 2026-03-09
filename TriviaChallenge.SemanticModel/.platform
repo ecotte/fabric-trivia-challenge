@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "TriviaChallenge"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "993f5ec6-e9ad-b8d7-4551-295b19bb8ed5"
+  }
+}

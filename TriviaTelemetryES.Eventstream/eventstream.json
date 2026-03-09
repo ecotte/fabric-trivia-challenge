@@ -1,0 +1,53 @@
+{
+  "sources": [
+    {
+      "id": "7927542d-037f-4f01-85eb-2796d93868ae",
+      "name": "CustomEndpoint-Source",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "2859b087-1785-4b4e-b2d5-a634862a7700",
+      "name": "Eventhouse",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "DirectIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "bb8afa96-36a3-894f-4a11-18073a76fafc",
+        "tableName": "raw_events",
+        "connectionName": null,
+        "mappingRuleName": null
+      },
+      "inputNodes": [
+        {
+          "name": "TriviaTelemetryES-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "TriviaTelemetryES-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "00a2a31a-d1c1-431b-9758-f4dccd1ed2e3",
+      "name": "TriviaTelemetryES-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "CustomEndpoint-Source"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventstream",
+    "displayName": "TriviaTelemetryES"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7ad1d2d6-2d82-b35f-406c-3e62d8a8fc47"
+  }
+}

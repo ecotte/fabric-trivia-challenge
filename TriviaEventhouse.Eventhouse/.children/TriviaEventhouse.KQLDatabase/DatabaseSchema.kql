@@ -1,0 +1,149 @@
+// KQL script
+// Use management commands in this script to configure your database items, such as tables, functions, materialized views, and more.
+
+
+.create-merge table raw_events (eventId:guid, eventType:string, type:string, eventName:string, userId:guid, timestamp:datetime, properties:dynamic, context:dynamic, ingestedAtUtc:datetime) 
+.create-or-alter table raw_events ingestion json mapping 'raw_events_mapping'
+```
+[{"Properties":{"Path":"$['eventId']"},"column":"eventId","datatype":""},{"Properties":{"Path":"$['eventType']"},"column":"eventType","datatype":""},{"Properties":{"Path":"$['type']"},"column":"type","datatype":""},{"Properties":{"Path":"$['eventName']"},"column":"eventName","datatype":""},{"Properties":{"Path":"$['userId']"},"column":"userId","datatype":""},{"Properties":{"Path":"$['timestamp']"},"column":"timestamp","datatype":""},{"Properties":{"Path":"$['properties']"},"column":"properties","datatype":""},{"Properties":{"Path":"$['context']"},"column":"context","datatype":""},{"Properties":{"Path":"$['ingestedAtUtc']"},"column":"ingestedAtUtc","datatype":""}]
+```
+.create-merge table Images (Name:string, EncryptedImage:string, URL:string) 
+.create-or-alter table Images ingestion csv mapping 'Images_mapping'
+```
+[{"Properties":{"Ordinal":"0"},"column":"Name","datatype":""},{"Properties":{"Ordinal":"1"},"column":"EncryptedImage","datatype":""},{"Properties":{"Ordinal":"2"},"column":"URL","datatype":""}]
+```
+.create-or-alter function with (skipvalidation = "true") allSessions(eventDate:datetime) {
+let startGame = 
+    raw_events
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | where localtime between (startofday(eventDate) .. endofday(eventDate))
+    | where ["type"] == "game"
+    | where eventName in  ("game.start")
+    | project
+        eventType,
+        type,
+        start=eventName,
+        userId,
+        startTime=localtime,
+        sessionId = toguid(properties.sessionId),
+        questionCount = toint(properties.questionCount),
+        pool=tostring(context.poolName),
+        timestamp;
+let score=
+    raw_events
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | where localtime between (startofday(eventDate) .. endofday(eventDate))
+    | where eventName == "game.answerquestion"
+    | where isnotempty(FinalScore= tostring(properties.totalScore))
+    | summarize arg_max (localtime, *) by sessionId = toguid(properties.sessionId)
+    | project sessionId, FinalScore= toint(properties.totalScore);
+let name=
+    raw_events
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | where localtime between (startofday(eventDate) .. endofday(eventDate))
+    | where eventName == "user.register"
+    | distinct
+        userId,
+        userName = tostring(properties.name),
+        country=tostring(properties.country),
+        state=tostring(properties.state);
+let endGame =
+    raw_events
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | where localtime between (startofday(eventDate) .. endofday(eventDate))
+    | where ["type"] == "game"
+    | where eventName in  ("game.ended")
+    | project
+        eventType,
+        type,
+        end=eventName,
+        endTime=localtime,
+        sessionId = toguid(properties.sessionId),
+        questionsAnswered = toint(properties.questionsAnswered),
+        correctAnswers=toint(properties.correctAnswers),
+        streaksCompleted=toint(properties.streaksCompleted),
+        timeRemaining=toint(properties.timeRemaining),
+        stationId=tostring(context.stationId);
+startGame
+| join name on userId
+| lookup endGame on sessionId
+| lookup score on sessionId
+| extend gameTime = case(isempty(endTime), (now() - startTime), endTime - startTime)}
+.create-or-alter function with (skipvalidation = "true") currentSession(eventDate:datetime) {
+    allSessions(eventDate)
+    | where isempty(end) //and gameTime < timespan(4 m)
+}
+.create-or-alter function with (skipvalidation = "true") questionsBySession(eventDate:datetime) {let sessionlist=
+    currentSession(eventDate)
+    | summarize make_list(sessionId);
+    raw_events
+    | where ["type"] == "game" 
+    | where eventName == "game.answerquestion"
+    | where properties.sessionId in (sessionlist)
+    | summarize arg_max(timestamp, *) by tostring(properties.sessionId)
+    | extend questionId = tostring(properties.questionId), isCorrect = tobool(properties.isCorrect)
+    | lookup external_table('Questions') on $left.questionId == $right.id
+    | project questionText}
+.create-or-alter function with (folder = "Calendar", skipvalidation = "true") Calendar(DaysBack:timespan=time(30.00:00:00), Precision:timespan=time(1.00:00:00)) {
+    let _startDate = startofday(ago(DaysBack));
+     let _endDate = startofday(now());
+     range Date from _startDate to _endDate step Precision
+    | extend
+        ["Year"]=getyear(["Date"]),
+        ["Month"]=getmonth(["Date"]),
+        ["Week of Year"]=week_of_year(["Date"]),
+        ["Week of Month"]=(dayofmonth(["Date"]) / 7) + 1,
+        ["Day"]=datepart('day', ["Date"])
+}
+.create-or-alter function with (skipvalidation = "true") leaderboard(EventDate:datetime, top:int=10) {
+    let NumStreaks = raw_events
+        | extend localtime=datetime_utc_to_local(timestamp,'US/Pacific')
+        | where localtime between (startofday(EventDate) .. endofday(EventDate))
+        | extend sessionId = toguid(properties.sessionId)
+        | summarize streakCount=countif(eventName == "game.streakcompleted"), timestamp=min(timestamp), localtime=min(localtime) by userId,sessionId;
+     allSessions(EventDate)
+    | lookup NumStreaks on userId, sessionId
+    | project userName, FinalScore, correctAnswers, streakCount, stationId,timestamp,localtime,userId
+    | lookup stationImages on stationId
+    | summarize arg_max(FinalScore,*) by userName
+        | where userName !in ("Jeff Struthers","Tyler","Matt Hicks","Hanselman")
+    | top ['top'] by FinalScore desc 
+    | serialize
+    | sort by FinalScore desc, localtime asc
+    | extend Rank= row_number()
+    | extend userName = iff(strlen(userName)<=20,userName,strcat(substring(userName,0,20),"..."))
+}
+.create-or-alter function with (skipvalidation = "true") stationImages() {
+datatable(stationId:string,imageUrl:string,wizzardName:string)[
+   "quantumqueryist","https://i.postimg.cc/X79tB84Y/QQ-v4-2.png","Quantum Queryist",
+   "insightsalchemist","https://i.postimg.cc/G2pXMFWJ/IA-v2-1.png","Insights Alchemist",
+   "dashboarddruid","https://i.postimg.cc/Cx56Q080/DD-v2-(1).png","Dashboard Druid"
+]
+}
+.create-or-alter function with (skipvalidation = "true") topEasiestCategory(EventDate:datetime, top:int) {
+answersCategory
+| sort by percentageCorrect desc 
+| extend EasyQuestion=percentageCorrect
+| take top
+}
+.create-or-alter function with (skipvalidation = "true") topHardestCategory(EventDate:datetime, top:int) {
+answersCategory
+| sort by percentageIncorrect desc 
+| extend EasyQuestion=percentageIncorrect
+| take top
+}
+.create-or-alter function with (skipvalidation = "true") stationStatistics(EventDate:datetime) {
+    raw_events
+| where eventName == "game.answerquestion"
+| extend stationId = tostring(context.stationId), isCorrect=tobool(properties.isCorrect), category=tostring(context.category)
+| summarize CorrectQuestions=countif(isCorrect), IncorrectQuestions=countif(not(isCorrect)) by stationId, category
+| lookup stationImages on stationId
+}
+.create-or-alter function with (skipvalidation = "true") answersCategory() {
+        raw_events
+| where eventName == "game.answerquestion"
+| extend isCorrect=tobool(properties.isCorrect)
+//| where tobool(properties.isCorrect) == false
+| summarize CorrectAnswers=countif(isCorrect),IncorrectAnswers=countif(not(isCorrect)), TotalAnswers=count() by tostring(properties.category)
+| extend percentageCorrect = toreal(CorrectAnswers)/toreal(TotalAnswers), percentageIncorrect=toreal(IncorrectAnswers)/toreal(TotalAnswers)
+}

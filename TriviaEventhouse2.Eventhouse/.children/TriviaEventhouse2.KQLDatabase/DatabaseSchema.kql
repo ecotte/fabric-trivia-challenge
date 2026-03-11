@@ -70,7 +70,7 @@ let endGame =
         timeRemaining=toint(properties.timeRemaining),
         stationId=tostring(context.stationId);
 startGame
-| join name on userId
+| join kind=leftouter name on userId
 | lookup endGame on sessionId
 | lookup score on sessionId
 | extend gameTime = case(isempty(endTime), (now() - startTime), endTime - startTime)}

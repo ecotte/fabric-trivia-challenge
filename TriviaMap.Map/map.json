@@ -11,10 +11,52 @@
     "kqlDataBases": [
       {
         "workspaceId": "00000000-0000-0000-0000-000000000000",
-        "artifactId": "be843d92-adc6-b044-4e33-753613cefde7"
+        "artifactId": "bb8afa96-36a3-894f-4a11-18073a76fafc"
       }
     ]
   },
-  "layerSources": [],
-  "layerSettings": []
+  "layerSources": [
+    {
+      "id": "319c6bc2-0b25-4dd9-b898-75bd19b7351f",
+      "name": "Fabric",
+      "type": "kusto",
+      "options": null,
+      "parentArtifactId": "bb8afa96-36a3-894f-4a11-18073a76fafc",
+      "relativePath": null,
+      "querysetTabId": "00000000-0000-0000-0000-000000000000_1da241a9-07ec-49b7-a3b7-d3729e7f608c",
+      "latitudeColumnName": "Latitude",
+      "longitudeColumnName": "Longitude",
+      "geometryColumnName": null,
+      "refreshIntervalMs": 5000
+    },
+    {
+      "id": "940b5252-cdd4-4d9d-9027-61e179b610b6",
+      "name": "SQL",
+      "type": "kusto",
+      "options": null,
+      "parentArtifactId": "bb8afa96-36a3-894f-4a11-18073a76fafc",
+      "relativePath": null,
+      "querysetTabId": "00000000-0000-0000-0000-000000000000_e3743a19-9c3e-49c7-8550-2883741dd8b0",
+      "latitudeColumnName": "Latitude",
+      "longitudeColumnName": "Longitude",
+      "geometryColumnName": null,
+      "refreshIntervalMs": 5000
+    }
+  ],
+  "layerSettings": [
+    {
+      "id": "949138b7-52d1-48c5-aaa3-306700cf75ba",
+      "name": "Fabric",
+      "sourceId": "319c6bc2-0b25-4dd9-b898-75bd19b7351f",
+      "sourceLayerId": null,
+      "options": "{\"color\":\"#4EC251\",\"type\":\"vector\",\"visible\":true}"
+    },
+    {
+      "id": "dc8315fa-1802-495d-a316-cc4b772ca1e5",
+      "name": "SQL",
+      "sourceId": "940b5252-cdd4-4d9d-9027-61e179b610b6",
+      "sourceLayerId": null,
+      "options": "{\"color\":\"#118DFF\",\"type\":\"vector\",\"visible\":true,\"bubbleOptions\":{\"color\":\"#118DFF\"},\"markerOptions\":{\"fillColor\":\"#118DFF\"},\"lineOptions\":{\"strokeColor\":\"#118DFF\"},\"polygonOptions\":{\"fillColor\":\"#118DFF\"},\"polygonExtrusionOptions\":{\"fillColor\":\"#118DFF\"}}"
+    }
+  ]
 }

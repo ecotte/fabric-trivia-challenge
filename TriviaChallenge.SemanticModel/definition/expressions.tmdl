@@ -6,7 +6,7 @@ expression CurrentDate = #datetime(2025, 3, 5, 13, 33, 0) meta [IsParameterQuery
 
 	annotation PBI_ResultType = DateTime
 
-expression KQLDatabaseURI = "https://trd-uz0vunh3y4d52rgdxz.z7.kusto.fabric.microsoft.com" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression KQLDatabaseURI = "https://trd-p81f181q7z8xudxv18.z2.kusto.fabric.microsoft.com" meta [IsParameterQuery = true, IsParameterQueryRequired = true, Type = "Text"]
 	lineageTag: 4c24bb89-02a8-4a33-b7d1-edc2a763dc60
 
 	annotation PBI_NavigationStepName = Navigation

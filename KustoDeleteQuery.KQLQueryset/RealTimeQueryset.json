@@ -1,0 +1,22 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "69a7dfa5-efc1-4fbe-904c-1f4bb9cb883a",
+        "clusterUri": "",
+        "type": "Fabric",
+        "databaseItemId": "be843d92-adc6-b044-4e33-753613cefde7",
+        "databaseItemName": "TriviaEventhouse"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "6e17823a-0c8e-403d-8ec0-a25c74d555c7",
+        "content": ".clear table raw_events data",
+        "title": "Delete",
+        "dataSourceId": "69a7dfa5-efc1-4fbe-904c-1f4bb9cb883a"
+      }
+    ]
+  }
+}

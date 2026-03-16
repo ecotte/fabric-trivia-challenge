@@ -29,7 +29,399 @@
         {
           "name": "TriviaTelemetryES-stream",
           "schema": {
-            "columns": []
+            "columns": [
+              {
+                "name": "eventId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "eventType",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "type",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "eventName",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "userId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "timestamp",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "properties",
+                "type": "Record",
+                "fields": [
+                  {
+                    "name": "sessionId",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "questionId",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "category",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "answerIndex",
+                    "type": "BigInt",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "isCorrect",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "responseTime",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "remainingTimeSeconds",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "questionNumber",
+                    "type": "BigInt",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "heartsRemaining",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "totalScore",
+                    "type": "BigInt",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "apiSuccess",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  }
+                ],
+                "items": null
+              },
+              {
+                "name": "context",
+                "type": "Record",
+                "fields": [
+                  {
+                    "name": "url",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "path",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "language",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "userAgent",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "viewport",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "screen",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "sessionId",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "poolId",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "poolName",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "page",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  }
+                ],
+                "items": null
+              },
+              {
+                "name": "ingestedAtUtc",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0e0f961-912b-4c5e-a043-c50a2f0b20f1",
+      "name": "EventhouseMain",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "DirectIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "be843d92-adc6-b044-4e33-753613cefde7",
+        "tableName": "",
+        "connectionName": null,
+        "mappingRuleName": null
+      },
+      "inputNodes": [
+        {
+          "name": "TriviaTelemetryES-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "TriviaTelemetryES-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "eventId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "eventType",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "type",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "eventName",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "userId",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "timestamp",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "properties",
+                "type": "Record",
+                "fields": [
+                  {
+                    "name": "sessionId",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "questionId",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "category",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "answerIndex",
+                    "type": "BigInt",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "isCorrect",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "responseTime",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "remainingTimeSeconds",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "questionNumber",
+                    "type": "BigInt",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "heartsRemaining",
+                    "type": "Float",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "totalScore",
+                    "type": "BigInt",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "apiSuccess",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  }
+                ],
+                "items": null
+              },
+              {
+                "name": "context",
+                "type": "Record",
+                "fields": [
+                  {
+                    "name": "url",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "path",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "language",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "userAgent",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "viewport",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "screen",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "sessionId",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "poolId",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "poolName",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  },
+                  {
+                    "name": "page",
+                    "type": "Nvarchar(max)",
+                    "fields": null,
+                    "items": null
+                  }
+                ],
+                "items": null
+              },
+              {
+                "name": "ingestedAtUtc",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              }
+            ]
           }
         }
       ]

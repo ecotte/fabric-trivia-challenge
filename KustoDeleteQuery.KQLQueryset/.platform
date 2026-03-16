@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLQueryset",
+    "displayName": "KustoDeleteQuery",
+    "description": "KustoDeleteQuery"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7afccd1d-aa8f-b1ec-456b-66f143f3b44e"
+  }
+}

@@ -108,10 +108,12 @@ startGame
         | summarize streakCount=countif(eventName == "game.streakcompleted"), timestamp=min(timestamp), localtime=min(localtime) by userId,sessionId;
      allSessions(EventDate)
     | lookup NumStreaks on userId, sessionId
-    | project userName, FinalScore, correctAnswers, streakCount, stationId,timestamp,localtime,userId
+    | project userName, FinalScore, correctAnswers, streakCount, stationId,timestamp,localtime,userId,pool
     | lookup stationImages on stationId
+    | lookup Images on $left.pool == $right.Name
+    | extend URL=iff(pool=="SQL","https://i.postimg.cc/cHb6Gz8h/SQL.png","https://i.postimg.cc/FHMZNP0h/Fabric_final_x256_1.png")
     | summarize arg_max(FinalScore,*) by userName
-        | where userName !in ("Jeff Struthers","Tyler","Matt Hicks","Hanselman")
+        // | where userName !in ("Jeff Struthers","Tyler","Matt Hicks","Hanselman")
     | top ['top'] by FinalScore desc 
     | serialize
     | sort by FinalScore desc, localtime asc

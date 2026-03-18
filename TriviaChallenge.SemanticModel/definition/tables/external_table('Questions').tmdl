@@ -100,7 +100,7 @@ table 'external_table(''Questions'')'
 				in
 				    #"external_table('Questions')1"
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Table
 
 	annotation PBI_NavigationStepName = Navigation
 

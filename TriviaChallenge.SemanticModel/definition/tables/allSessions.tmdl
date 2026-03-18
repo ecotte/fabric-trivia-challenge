@@ -191,6 +191,38 @@ table allSessions
 
 		annotation SummarizationSetBy = Automatic
 
+	column pool
+		dataType: string
+		lineageTag: febe19e0-a819-43fe-a0cd-e5d0ba307365
+		summarizeBy: none
+		sourceColumn: pool
+
+		annotation SummarizationSetBy = Automatic
+
+	column userId1
+		dataType: string
+		lineageTag: 76f0d66d-4aee-4d4f-9e58-d772fe9b6bb3
+		summarizeBy: none
+		sourceColumn: userId1
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 6a29985a-14fd-4e90-9bab-b89e85cc1aba
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: 7cb11534-3de2-410d-b3d0-74ff7ef18614
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
 	partition allSessions = m
 		mode: directQuery
 		source =

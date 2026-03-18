@@ -107,6 +107,31 @@ table leaderboard
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Track Name'
+		dataType: string
+		lineageTag: 7a3d6af1-1781-4278-a92f-9814d737cd4d
+		summarizeBy: none
+		sourceColumn: Track Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Track
+		dataType: string
+		lineageTag: 9c760437-25c4-4fa1-af5f-478134a4e653
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Track
+
+		annotation SummarizationSetBy = Automatic
+
+	column EncryptedImage
+		dataType: string
+		lineageTag: f5500aaa-4082-4ca9-a46a-90eb1444ea75
+		summarizeBy: none
+		sourceColumn: EncryptedImage
+
+		annotation SummarizationSetBy = Automatic
+
 	partition leaderboard = m
 		mode: directQuery
 		source =
@@ -114,11 +139,11 @@ table leaderboard
 				    Source = Connection,
 				    leaderboard1 = Source{[Name="leaderboard"]}[Data],
 				    #"Invoked Functionleaderboard1" = leaderboard1(CurrentDate, 10),
-				    #"Renamed Columns" = Table.RenameColumns(#"Invoked Functionleaderboard1",{{"userName", "User"}, {"streakCount", "Streak Count"}, {"FinalScore", "Final Score"}, {"correctAnswers", "Correct Answers"}, {"imageUrl", "Station"}})
+				    #"Renamed Columns" = Table.RenameColumns(#"Invoked Functionleaderboard1",{{"userName", "User"}, {"streakCount", "Streak Count"}, {"FinalScore", "Final Score"}, {"correctAnswers", "Correct Answers"}, {"imageUrl", "Station"}, {"pool", "Track Name"}, {"URL", "Track"}})
 				in
 				    #"Renamed Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Table
 

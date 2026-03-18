@@ -12,6 +12,11 @@
 ```
 [{"Properties":{"Ordinal":"0"},"column":"Name","datatype":""},{"Properties":{"Ordinal":"1"},"column":"EncryptedImage","datatype":""},{"Properties":{"Ordinal":"2"},"column":"URL","datatype":""}]
 ```
+.create-merge table locations (AdminDivision1:string, CountryRegion_ShortName:string, CountryRegion_LongName:string, Longitude:real, Latitude:real) 
+.create-or-alter table locations ingestion csv mapping 'locations_mapping'
+```
+[{"Properties":{"Ordinal":"0"},"column":"AdminDivision1","datatype":""},{"Properties":{"Ordinal":"1"},"column":"CountryRegion_ShortName","datatype":""},{"Properties":{"Ordinal":"2"},"column":"CountryRegion_LongName","datatype":""},{"Properties":{"Ordinal":"3"},"column":"Longitude","datatype":""},{"Properties":{"Ordinal":"4"},"column":"Latitude","datatype":""}]
+```
 .create-or-alter function with (skipvalidation = "true") allSessions(eventDate:datetime) {
 let startGame = 
     raw_events
@@ -65,7 +70,7 @@ let endGame =
         timeRemaining=toint(properties.timeRemaining),
         stationId=tostring(context.stationId);
 startGame
-| join name on userId
+| join kind=leftouter name on userId
 | lookup endGame on sessionId
 | lookup score on sessionId
 | extend gameTime = case(isempty(endTime), (now() - startTime), endTime - startTime)}

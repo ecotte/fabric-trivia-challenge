@@ -107,6 +107,30 @@ table previousDayWinners
 
 		annotation SummarizationSetBy = Automatic
 
+	column pool
+		dataType: string
+		lineageTag: f3cb9a69-ef35-47c9-a962-5e587a6d0e42
+		summarizeBy: none
+		sourceColumn: pool
+
+		annotation SummarizationSetBy = Automatic
+
+	column Track
+		dataType: string
+		lineageTag: a7c0aaf3-782d-468f-be6f-2e408e5f5865
+		summarizeBy: none
+		sourceColumn: Track
+
+		annotation SummarizationSetBy = Automatic
+
+	column EncryptedImage
+		dataType: string
+		lineageTag: 383b608e-9b60-47e3-950b-9dbe606c424d
+		summarizeBy: none
+		sourceColumn: EncryptedImage
+
+		annotation SummarizationSetBy = Automatic
+
 	partition previousDayWinners = m
 		mode: directQuery
 		source =
@@ -114,7 +138,7 @@ table previousDayWinners
 				    Source = Connection,
 				    leaderboard1 = Source{[Name="leaderboard"]}[Data],
 				    #"Invoked Functionleaderboard1" = leaderboard1(Date.AddDays(CurrentDate,-1), 3),
-				    #"Renamed Columns" = Table.RenameColumns(#"Invoked Functionleaderboard1",{{"userName", "User"}, {"streakCount", "Streak Count"}, {"FinalScore", "Final Score"}, {"correctAnswers", "Correct Answers"}, {"imageUrl", "Station"}})
+				    #"Renamed Columns" = Table.RenameColumns(#"Invoked Functionleaderboard1",{{"userName", "User"}, {"streakCount", "Streak Count"}, {"FinalScore", "Final Score"}, {"correctAnswers", "Correct Answers"}, {"imageUrl", "Station"}, {"URL", "Track"}})
 				in
 				    #"Renamed Columns"
 

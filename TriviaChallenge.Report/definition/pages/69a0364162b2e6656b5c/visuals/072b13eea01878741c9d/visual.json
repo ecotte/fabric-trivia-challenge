@@ -51,20 +51,6 @@
                       "Entity": "leaderboard"
                     }
                   },
-                  "Property": "Track Name"
-                }
-              },
-              "queryRef": "leaderboard.pool",
-              "nativeQueryRef": "Track Name"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "leaderboard"
-                    }
-                  },
                   "Property": "Track"
                 }
               },
@@ -576,93 +562,6 @@
               }
             ],
             "metadata": "leaderboard.imageUrl"
-          }
-        },
-        {
-          "properties": {
-            "backColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Conditional": {
-                      "Cases": [
-                        {
-                          "Condition": {
-                            "And": {
-                              "Left": {
-                                "Comparison": {
-                                  "ComparisonKind": 2,
-                                  "Left": {
-                                    "Aggregation": {
-                                      "Expression": {
-                                        "Column": {
-                                          "Expression": {
-                                            "SourceRef": {
-                                              "Entity": "leaderboard"
-                                            }
-                                          },
-                                          "Property": "Rank"
-                                        }
-                                      },
-                                      "Function": 0
-                                    }
-                                  },
-                                  "Right": {
-                                    "Literal": {
-                                      "Value": "0D"
-                                    }
-                                  }
-                                }
-                              },
-                              "Right": {
-                                "Comparison": {
-                                  "ComparisonKind": 4,
-                                  "Left": {
-                                    "Aggregation": {
-                                      "Expression": {
-                                        "Column": {
-                                          "Expression": {
-                                            "SourceRef": {
-                                              "Entity": "leaderboard"
-                                            }
-                                          },
-                                          "Property": "Rank"
-                                        }
-                                      },
-                                      "Function": 0
-                                    }
-                                  },
-                                  "Right": {
-                                    "Literal": {
-                                      "Value": "3D"
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#9071CE'"
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 1
-                }
-              }
-            ],
-            "metadata": "leaderboard.pool"
           }
         }
       ],

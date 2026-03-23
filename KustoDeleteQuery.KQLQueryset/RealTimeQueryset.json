@@ -8,6 +8,13 @@
         "type": "Fabric",
         "databaseItemId": "be843d92-adc6-b044-4e33-753613cefde7",
         "databaseItemName": "TriviaEventhouse"
+      },
+      {
+        "id": "7d004cf1-b109-49a7-ae48-f75c4b092bf4",
+        "clusterUri": "",
+        "type": "Fabric",
+        "databaseItemId": "bb8afa96-36a3-894f-4a11-18073a76fafc",
+        "databaseItemName": "TriviaEventhouse2"
       }
     ],
     "tabs": [

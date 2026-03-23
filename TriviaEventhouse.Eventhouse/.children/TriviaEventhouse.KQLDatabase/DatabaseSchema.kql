@@ -20,7 +20,7 @@
 .create-or-alter function with (skipvalidation = "true") allSessions(eventDate:datetime) {
 let startGame = 
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Eastern')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where ["type"] == "game"
     | where eventName in  ("game.start")
@@ -36,7 +36,7 @@ let startGame =
         timestamp;
 let score=
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Eastern')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where eventName == "game.answerquestion"
     | where isnotempty(FinalScore= tostring(properties.totalScore))
@@ -44,7 +44,7 @@ let score=
     | project sessionId, FinalScore= toint(properties.totalScore);
 let name=
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Eastern')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where eventName == "user.register"
     | distinct
@@ -54,7 +54,7 @@ let name=
         state=tostring(properties.state);
 let endGame =
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Eastern')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where ["type"] == "game"
     | where eventName in  ("game.ended")
@@ -102,16 +102,18 @@ startGame
 }
 .create-or-alter function with (skipvalidation = "true") leaderboard(EventDate:datetime, top:int=10) {
     let NumStreaks = raw_events
-        | extend localtime=datetime_utc_to_local(timestamp,'US/Pacific')
+        | extend localtime=datetime_utc_to_local(timestamp,'US/Eastern')
         | where localtime between (startofday(EventDate) .. endofday(EventDate))
         | extend sessionId = toguid(properties.sessionId)
         | summarize streakCount=countif(eventName == "game.streakcompleted"), timestamp=min(timestamp), localtime=min(localtime) by userId,sessionId;
      allSessions(EventDate)
     | lookup NumStreaks on userId, sessionId
-    | project userName, FinalScore, correctAnswers, streakCount, stationId,timestamp,localtime,userId
+    | project userName, FinalScore, correctAnswers, streakCount, stationId,timestamp,localtime,userId,pool
     | lookup stationImages on stationId
+    | lookup Images on $left.pool == $right.Name
+    | extend URL=iff(pool=="SQL","https://i.postimg.cc/rFZd66jp/image-(5).png","https://i.postimg.cc/FHMZNP0h/Fabric_final_x256_1.png")
     | summarize arg_max(FinalScore,*) by userName
-        | where userName !in ("Jeff Struthers","Tyler","Matt Hicks","Hanselman")
+        // | where userName !in ("Jeff Struthers","Tyler","Matt Hicks","Hanselman")
     | top ['top'] by FinalScore desc 
     | serialize
     | sort by FinalScore desc, localtime asc
@@ -151,4 +153,82 @@ answersCategory
 //| where tobool(properties.isCorrect) == false
 | summarize CorrectAnswers=countif(isCorrect),IncorrectAnswers=countif(not(isCorrect)), TotalAnswers=count() by tostring(properties.category)
 | extend percentageCorrect = toreal(CorrectAnswers)/toreal(TotalAnswers), percentageIncorrect=toreal(IncorrectAnswers)/toreal(TotalAnswers)
+}
+.create-or-alter function with (skipvalidation = "true") Fabric() {
+    //allSessions(now())
+allSessions(now())
+| where pool == "Fabric"
+| extend JoinKey = iff(isnotempty(state), state, country)
+| join kind=leftouter (
+    locations
+    | extend JoinKey = iff(CountryRegion_ShortName == "United States", AdminDivision1, CountryRegion_ShortName)
+    | project JoinKey,
+              CountryRegion_ShortName,
+              AdminDivision1,
+              Longitude,
+              Latitude
+) on JoinKey
+| project state, country, pool ,Longitude, Latitude, correctAnswers
+| summarize totalCorrectAnswers=sum(correctAnswers) by tostring(pool), country, state, Longitude, Latitude
+| extend radius_meters = case(
+        totalCorrectAnswers <= 1,   11000,
+        totalCorrectAnswers <= 3,   16000,
+        totalCorrectAnswers <= 5,   20000,
+        totalCorrectAnswers <= 7,   25000,
+        totalCorrectAnswers <= 9,   29000,
+        totalCorrectAnswers <= 11,  34000,
+        totalCorrectAnswers <= 13,  38000,
+        totalCorrectAnswers <= 15,  43000,
+        totalCorrectAnswers <= 17,  47000,
+        totalCorrectAnswers <= 19,  52000,
+        totalCorrectAnswers <= 21,  56000,
+        totalCorrectAnswers <= 23,  61000,
+        totalCorrectAnswers <= 25,  65000,
+                                    70000
+    )
+| extend circle_geometry =
+    geo_point_buffer(
+        Longitude,
+        Latitude,
+       radius_meters
+    )
+}
+.create-or-alter function with (skipvalidation = "true") SQL() {
+    //allSessions(now())
+allSessions(now())
+| where pool == "SQL"
+| extend JoinKey = iff(isnotempty(state), state, country)
+| join kind=leftouter (
+    locations
+    | extend JoinKey = iff(CountryRegion_ShortName == "United States", AdminDivision1, CountryRegion_ShortName)
+    | project JoinKey,
+              CountryRegion_ShortName,
+              AdminDivision1,
+              Longitude,
+              Latitude
+) on JoinKey
+| project state, country, pool ,Longitude, Latitude, correctAnswers
+| summarize totalCorrectAnswers=sum(correctAnswers) by tostring(pool), country, state, Longitude, Latitude
+| extend radius_meters = case(
+        totalCorrectAnswers <= 1,   11000,
+        totalCorrectAnswers <= 3,   16000,
+        totalCorrectAnswers <= 5,   20000,
+        totalCorrectAnswers <= 7,   25000,
+        totalCorrectAnswers <= 9,   29000,
+        totalCorrectAnswers <= 11,  34000,
+        totalCorrectAnswers <= 13,  38000,
+        totalCorrectAnswers <= 15,  43000,
+        totalCorrectAnswers <= 17,  47000,
+        totalCorrectAnswers <= 19,  52000,
+        totalCorrectAnswers <= 21,  56000,
+        totalCorrectAnswers <= 23,  61000,
+        totalCorrectAnswers <= 25,  65000,
+                                    70000
+    )
+| extend circle_geometry =
+    geo_point_buffer(
+        Longitude,
+        Latitude,
+       radius_meters
+    )
 }

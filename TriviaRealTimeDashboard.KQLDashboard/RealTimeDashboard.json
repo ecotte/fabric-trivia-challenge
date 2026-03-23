@@ -1,5 +1,5 @@
 {
-  "schema_version": 69,
+  "schema_version": 68,
   "autoRefresh": {
     "enabled": true,
     "defaultInterval": "1s"
@@ -114,9 +114,9 @@
       "visualType": "markdownCard",
       "pageId": "2d972cba-5dfe-4f38-aa41-9618f7af4398",
       "layout": {
-        "x": 2,
+        "x": 0,
         "y": 0,
-        "width": 19,
+        "width": 22,
         "height": 6
       },
       "markdownText": "![](https://i.postimg.cc/3wccxFrz/image.jpg)",
@@ -443,7 +443,7 @@
       "id": "c5f76ee9-8b0b-4b09-914c-ab8f8984edd6",
       "name": "TriviaChallengeEventhouse",
       "clusterUri": "",
-      "database": "bb8afa96-36a3-894f-4a11-18073a76fafc",
+      "database": "be843d92-adc6-b044-4e33-753613cefde7",
       "workspace": "00000000-0000-0000-0000-000000000000",
       "scopeId": "kusto-trident"
     }

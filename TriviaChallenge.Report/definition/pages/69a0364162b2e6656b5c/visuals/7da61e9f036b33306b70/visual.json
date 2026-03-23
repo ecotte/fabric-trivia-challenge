@@ -2,16 +2,14 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
   "name": "7da61e9f036b33306b70",
   "position": {
-    "x": -12.711370262390837,
-    "y": 3159.7813411078751,
+    "x": 0,
+    "y": 3203.8292982525654,
     "z": 5000,
-    "height": 632.18658892124949,
-    "width": 2167.4927113702629,
-    "tabOrder": 3000
+    "height": 632.97539327178345,
+    "width": 2171.5925030708881
   },
   "visualGroup": {
     "displayName": "Yesterday",
     "groupMode": "ScaleMode"
-  },
-  "isHidden": true
+  }
 }

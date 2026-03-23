@@ -20,7 +20,7 @@
 .create-or-alter function with (skipvalidation = "true") allSessions(eventDate:datetime) {
 let startGame = 
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Eastern')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where ["type"] == "game"
     | where eventName in  ("game.start")
@@ -36,7 +36,7 @@ let startGame =
         timestamp;
 let score=
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Eastern')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where eventName == "game.answerquestion"
     | where isnotempty(FinalScore= tostring(properties.totalScore))
@@ -44,7 +44,7 @@ let score=
     | project sessionId, FinalScore= toint(properties.totalScore);
 let name=
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Eastern')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where eventName == "user.register"
     | distinct
@@ -54,7 +54,7 @@ let name=
         state=tostring(properties.state);
 let endGame =
     raw_events
-    | extend localtime=datetime_utc_to_local(timestamp, 'US/Pacific')
+    | extend localtime=datetime_utc_to_local(timestamp, 'US/Eastern')
     | where localtime between (startofday(eventDate) .. endofday(eventDate))
     | where ["type"] == "game"
     | where eventName in  ("game.ended")
@@ -102,7 +102,7 @@ startGame
 }
 .create-or-alter function with (skipvalidation = "true") leaderboard(EventDate:datetime, top:int=10) {
     let NumStreaks = raw_events
-        | extend localtime=datetime_utc_to_local(timestamp,'US/Pacific')
+        | extend localtime=datetime_utc_to_local(timestamp,'US/Eastern')
         | where localtime between (startofday(EventDate) .. endofday(EventDate))
         | extend sessionId = toguid(properties.sessionId)
         | summarize streakCount=countif(eventName == "game.streakcompleted"), timestamp=min(timestamp), localtime=min(localtime) by userId,sessionId;

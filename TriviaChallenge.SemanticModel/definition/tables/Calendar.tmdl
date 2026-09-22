@@ -1,0 +1,89 @@
+table Calendar
+	lineageTag: 609e7f36-b3ec-42df-b94a-0430411cda51
+
+	column Date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetimeoffset
+		lineageTag: 6c5b47bc-96e6-4f85-ab0b-8364e01a2003
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 2c344697-40bd-4852-aaa3-a35bdeb283a2
+			defaultHierarchy: LocalDateTable_fd879e21-ac85-4f61-8eb8-dd278931685f.'Date Hierarchy'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 2,
+				  "kind": 1,
+				  "selectAllValue": "__SelectAll__"
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: a2233c2d-a999-47e8-8ac6-c4a857f6d029
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1ae1c92c-469d-4528-bbe1-c6059b3683b8
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week of Year'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 2a4be8cb-69b0-4197-a216-67b2cc2db4b1
+		summarizeBy: sum
+		sourceColumn: Week of Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week of Month'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: e330c0a4-b2b6-453f-bd46-320a0258a975
+		summarizeBy: sum
+		sourceColumn: Week of Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 3e91e814-a508-4383-be66-b2f67b5d82e7
+		summarizeBy: sum
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = m
+		mode: import
+		source =
+				let
+				    Source = Connection,
+				    Calendar1 = Source{[Name="Calendar"]}[Data],
+				    #"Invoked FunctionCalendar1" = Calendar1(#duration(365, 0, 0, 0), #duration(1, 0, 0, 0))
+				in
+				    #"Invoked FunctionCalendar1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

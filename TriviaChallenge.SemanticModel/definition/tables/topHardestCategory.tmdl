@@ -1,0 +1,90 @@
+table topHardestCategory
+	lineageTag: 4905cd45-b21c-4efc-8b42-62d463f3fd95
+
+	column properties_category
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 635f2421-cfd6-4fc9-90ee-6779b2492977
+		summarizeBy: none
+		sourceColumn: properties_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column EasyQuestion
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		sourceProviderType: bigint
+		lineageTag: 6656debb-d34e-48e5-8b92-9d63339fa350
+		summarizeBy: sum
+		sourceColumn: EasyQuestion
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column CorrectAnswers
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 2d29bd8a-7309-4f9b-9186-09825df237d5
+		summarizeBy: sum
+		sourceColumn: CorrectAnswers
+
+		annotation SummarizationSetBy = Automatic
+
+	column IncorrectAnswers
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 69f462ea-e6d8-498f-a084-5b7d32aa2cdd
+		summarizeBy: sum
+		sourceColumn: IncorrectAnswers
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalAnswers
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 8eef6544-10d0-4601-8518-88ee04416874
+		summarizeBy: sum
+		sourceColumn: TotalAnswers
+
+		annotation SummarizationSetBy = Automatic
+
+	column percentageCorrect
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 08db41e6-dd95-4f82-ae2f-2671a17b861d
+		summarizeBy: sum
+		sourceColumn: percentageCorrect
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column percentageIncorrect
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 12dec5a7-ac2f-4416-8f06-8fcd3d5841fb
+		summarizeBy: sum
+		sourceColumn: percentageIncorrect
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition topHardestCategory = m
+		mode: directQuery
+		source =
+				let
+				    Source = Connection,
+				    topHardestCategory1 = Source{[Name="topHardestCategory"]}[Data],
+				    #"Invoked FunctiontopHardestCategory1" = topHardestCategory1(CurrentDate, 3)
+				in
+				    #"Invoked FunctiontopHardestCategory1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

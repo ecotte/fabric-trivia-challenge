@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["external_table('Questions')","allSessions","Calendar","CurrentDate","leaderboard","previousDayWinners","topEasiestCategory","topHardestCategory","stationStatistics","Connection","KQLDatabaseURI","KQLDatabaseName"]
+
+annotation PBI_ProTooling = ["WebModelingEdit"]
+
+ref table 'external_table(''Questions'')'
+ref table allSessions
+ref table Calendar
+ref table DateTableTemplate_c9e98fb4-ae4a-4d14-aefb-f49ba2142a75
+ref table LocalDateTable_fd879e21-ac85-4f61-8eb8-dd278931685f
+ref table leaderboard
+ref table previousDayWinners
+ref table topEasiestCategory
+ref table topHardestCategory
+ref table stationStatistics
+
+ref cultureInfo en-US
+

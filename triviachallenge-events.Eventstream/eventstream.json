@@ -1,0 +1,53 @@
+{
+  "sources": [
+    {
+      "id": "9f9f7427-420d-4ee8-b137-9f8afaa0d449",
+      "name": "TriviaApp",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "3b934895-264a-45d4-bab7-6458d07c675e",
+      "name": "Eventhouse",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "DirectIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "cb88f75a-6ca8-b098-4d6a-3f1461761937",
+        "tableName": "TriviaTelemetry",
+        "connectionName": "triviachallenge-events_ck3dmp",
+        "mappingRuleName": "TriviaTelemetry_mapping"
+      },
+      "inputNodes": [
+        {
+          "name": "TriviaEvents"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "TriviaEvents",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "ffa4d469-03f7-4402-a5f0-73afdec25522",
+      "name": "TriviaEvents",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "TriviaApp"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}

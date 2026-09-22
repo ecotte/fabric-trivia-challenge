@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventstream",
+    "displayName": "triviachallenge-events",
+    "description": "Microsoft Fabric Trivia Challenge Rayfin migration"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "820d9876-b68d-9c06-4f97-2c3049b49c3f"
+  }
+}
